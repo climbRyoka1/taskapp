@@ -31,6 +31,7 @@ class ViewController: UIViewController , UITableViewDataSource, UITableViewDeleg
     
     
     var taskArray = try!Realm().objects(Task.self).sorted(byKeyPath:"date", ascending: false)
+   
     
     
     
@@ -52,6 +53,7 @@ class ViewController: UIViewController , UITableViewDataSource, UITableViewDeleg
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("B")
         return taskArray.count
     }
     
@@ -95,12 +97,15 @@ class ViewController: UIViewController , UITableViewDataSource, UITableViewDeleg
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let inputViewController:InputViewController = segue.destination as! InputViewController
         
         if segue.identifier == "Cellsegue"{
+             let inputViewController:InputViewController = segue.destination as! InputViewController
             let indexPath = self.tableView.indexPathForSelectedRow
             inputViewController.task = taskArray[indexPath!.row]
-        }else{
+        }else if segue.identifier == "Categorysegue"{
+            let _:CategoryViewController = segue.destination as! CategoryViewController
+        }else if segue.identifier == "plussegue"{
+            let inputViewController:InputViewController = segue.destination as! InputViewController
             let task = Task()
             task.date = Date()
             let allTasks = realm.objects(Task.self)

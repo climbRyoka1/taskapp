@@ -5,7 +5,7 @@
 //  Created by 両川昇 on 2019/07/04.
 //  Copyright © 2019 両川昇. All rights reserved.
 //
-
+import Foundation
 import RealmSwift
 
 
@@ -35,13 +35,5 @@ class Task: Object {
 }
 
 class Category: Object {
-    
-    @objc dynamic var id = 0
-    
-    @objc dynamic var category = ""
-    
-    override static func primaryKey() -> String? {
-        return "id"
-        
-  }
+    @objc dynamic var cate = ""
 }
