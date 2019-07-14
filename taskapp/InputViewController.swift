@@ -10,34 +10,94 @@ import UIKit
 import  RealmSwift
 import UserNotifications
 
-class InputViewController: UIViewController {
+class InputViewController: UIViewController,UIPickerViewDelegate,UIPickerViewDataSource {
 
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var contentsTextView: UITextView!
-    @IBOutlet weak var datePicker: UIDatePicker!
-    @IBOutlet weak var Category: UITextField!
+    @IBOutlet weak var dateTextField: UITextField!
+    @IBOutlet weak var categoryTextField: UITextField!
+    @IBOutlet weak var contentsLabel: UILabel!
     
-    let realm = try! Realm()
     var task:Task!
+    var category : Results<Category>!
+    let dateformatter = DateFormatter()
+    let realm = try! Realm()
+    
+    var datePicker : UIDatePicker = UIDatePicker()
+    var categoryPicker : UIPickerView = UIPickerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let tapGestuere : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismisskeyboard))
+        
+        category = realm.objects(Category.self)
+        datePicker.datePickerMode = .dateAndTime
+        datePicker.addTarget(self, action: #selector(dateChanged(datePicker:)), for: .valueChanged)
+        dateTextField.inputView = datePicker
+        
+        categoryPicker.delegate = self
+        categoryPicker.dataSource = self
+        
+        categoryTextField.inputView = categoryPicker
+        
+        let tapGestuere : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         self.view.addGestureRecognizer(tapGestuere)
         
+        let toolber = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 30))
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+        toolber.setItems([space,doneButton], animated: true)
+        
+        dateTextField.inputAccessoryView = toolber
         titleTextField.text = task.title
         contentsTextView.text = task.contents
         datePicker.date = task.date
-        Category.text = task.category
-        
+        categoryTextField.text = task.category
+        dateformatter.dateFormat = "yyyy-MM-dd HH:mm"
+        contentsLabel.text = "\(dateformatter.string(from: task.date)) 内容"
+    }
+    
+    @objc func dateChanged(datePicker : UIDatePicker){
+        dateformatter.dateFormat = "yyyy-MM-dd HH:mm"
+        dateTextField.text = dateformatter.string(from: datePicker.date)
+        contentsLabel.text = "\(dateformatter.string(from: datePicker.date)) 内容"
+    }
+    
+    @objc func done(){
+        view.endEditing(true)
+    }
+
+    @objc func dismissKeyboard(){
+        view.endEditing(true)
+    }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if let category = category{
+        return category.count
+    }
+        return 0
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if let category = category{
+            return category[row].cate
+        }
+        return nil
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        categoryTextField.text = category[row].cate
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         try! realm.write {
             self.task.title = titleTextField.text!
             self.task.contents = contentsTextView.text
+            self.task.category = categoryTextField.text!
             self.task.date = datePicker.date
-            self.task.category = Category.text!
             self.realm.add(self.task, update: true)
         }
         setNotification(task: task)
@@ -77,9 +137,7 @@ class InputViewController: UIViewController {
             }
     }
     }
-    @objc func dismisskeyboard(){
-        view.endEditing(true)
-    }
+    
     
 
     /*

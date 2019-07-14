@@ -35,5 +35,10 @@ class Task: Object {
 }
 
 class Category: Object {
+    
+    @objc dynamic var id = 0
+    
     @objc dynamic var cate = ""
+    
+   
 }

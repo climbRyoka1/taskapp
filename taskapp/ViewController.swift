@@ -13,7 +13,7 @@ import UserNotifications
 class ViewController: UIViewController , UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate{
 
     let realm = try! Realm()
-    
+
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -53,7 +53,6 @@ class ViewController: UIViewController , UITableViewDataSource, UITableViewDeleg
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("B")
         return taskArray.count
     }
     
@@ -63,8 +62,8 @@ class ViewController: UIViewController , UITableViewDataSource, UITableViewDeleg
         cell.textLabel?.text = task.title
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        let datestring:String = formatter.string(from:task.date)
-        cell.detailTextLabel?.text = datestring
+        let dateString = formatter.string(from: task.date)
+        cell.detailTextLabel?.text = dateString
         return cell
     }
     
@@ -102,6 +101,7 @@ class ViewController: UIViewController , UITableViewDataSource, UITableViewDeleg
              let inputViewController:InputViewController = segue.destination as! InputViewController
             let indexPath = self.tableView.indexPathForSelectedRow
             inputViewController.task = taskArray[indexPath!.row]
+    
         }else if segue.identifier == "Categorysegue"{
             let _:CategoryViewController = segue.destination as! CategoryViewController
         }else if segue.identifier == "plussegue"{
@@ -113,6 +113,7 @@ class ViewController: UIViewController , UITableViewDataSource, UITableViewDeleg
                 task.id = allTasks.max(ofProperty: "id")! + 1
             }
             inputViewController.task = task
+
         }
     }
 

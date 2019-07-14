@@ -68,7 +68,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="2D1-81-u70">
-                        <barButtonItem key="leftBarButtonItem" title="カテゴリー制作" id="Rfq-fv-FHS">
+                        <barButtonItem key="leftBarButtonItem" title="カテゴリー設定" id="Rfq-fv-FHS">
                             <connections>
                                 <segue destination="93H-FH-hVU" kind="show" identifier="categorySegue" id="MAI-qI-WlJ"/>
                             </connections>
@@ -98,24 +98,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <datePicker contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Gef-iE-pKU">
-                                <rect key="frame" x="0.0" y="385.5" width="320" height="120"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="tVo-9j-Laf"/>
-                                </constraints>
-                                <date key="date" timeIntervalSinceReferenceDate="583797029.64650297">
-                                    <!--2019-07-02 21:50:29 +0000-->
-                                </date>
-                                <locale key="locale" localeIdentifier="ja"/>
-                            </datePicker>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="内容" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qFu-yU-5yn">
-                                <rect key="frame" x="10" y="225" width="300" height="20.5"/>
+                                <rect key="frame" x="10" y="265" width="300" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="4dZ-MV-bJU">
-                                <rect key="frame" x="10" y="255.5" width="300" height="120"/>
+                                <rect key="frame" x="10" y="295.5" width="300" height="120"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="fDn-gF-EKD"/>
@@ -125,7 +115,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <stackView opaque="NO" contentMode="scaleAspectFit" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="CrA-HZ-2WF">
-                                <rect key="frame" x="10" y="84" width="300" height="131"/>
+                                <rect key="frame" x="10" y="84" width="300" height="171"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="カテゴリー" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXQ-0v-Y74">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="20.5"/>
@@ -151,29 +141,34 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="日付入力" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ekk-g5-iQo">
+                                        <rect key="frame" x="0.0" y="141" width="300" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Gef-iE-pKU" firstAttribute="top" secondItem="4dZ-MV-bJU" secondAttribute="bottom" constant="10" id="2Hy-dN-UhB"/>
                             <constraint firstItem="CrA-HZ-2WF" firstAttribute="leading" secondItem="VWY-0z-3Jd" secondAttribute="leading" constant="10" id="5yl-gi-UUN"/>
                             <constraint firstItem="CrA-HZ-2WF" firstAttribute="top" secondItem="VWY-0z-3Jd" secondAttribute="top" constant="20" id="Oqc-FW-Nnr"/>
+                            <constraint firstItem="qFu-yU-5yn" firstAttribute="top" secondItem="CrA-HZ-2WF" secondAttribute="bottom" constant="10" id="gHr-xP-sdd"/>
                             <constraint firstItem="VWY-0z-3Jd" firstAttribute="trailing" secondItem="4dZ-MV-bJU" secondAttribute="trailing" constant="10" id="kml-Gk-yoJ"/>
                             <constraint firstItem="VWY-0z-3Jd" firstAttribute="trailing" secondItem="CrA-HZ-2WF" secondAttribute="trailing" constant="10" id="qdE-dA-3Ns"/>
                             <constraint firstItem="VWY-0z-3Jd" firstAttribute="trailing" secondItem="qFu-yU-5yn" secondAttribute="trailing" constant="10" id="t8g-1a-cxf"/>
                             <constraint firstItem="4dZ-MV-bJU" firstAttribute="top" secondItem="qFu-yU-5yn" secondAttribute="bottom" constant="10" id="tf9-AA-Mkj"/>
-                            <constraint firstItem="Gef-iE-pKU" firstAttribute="centerX" secondItem="Vf5-Q5-tWf" secondAttribute="centerX" id="ty9-WA-mkv"/>
                             <constraint firstItem="qFu-yU-5yn" firstAttribute="leading" secondItem="VWY-0z-3Jd" secondAttribute="leading" constant="10" id="uJJ-v0-EYX"/>
                             <constraint firstItem="4dZ-MV-bJU" firstAttribute="leading" secondItem="VWY-0z-3Jd" secondAttribute="leading" constant="10" id="vd2-YK-rTK"/>
-                            <constraint firstItem="qFu-yU-5yn" firstAttribute="top" secondItem="CrA-HZ-2WF" secondAttribute="bottom" constant="10" id="yS6-rG-f0v"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VWY-0z-3Jd"/>
                     </view>
                     <connections>
-                        <outlet property="Category" destination="nTb-Ye-nNh" id="sW3-2d-O5n"/>
+                        <outlet property="categoryTextField" destination="nTb-Ye-nNh" id="dMP-PH-HRb"/>
+                        <outlet property="contentsLabel" destination="qFu-yU-5yn" id="67f-Dc-1Yf"/>
                         <outlet property="contentsTextView" destination="4dZ-MV-bJU" id="7Q4-OI-F50"/>
-                        <outlet property="datePicker" destination="Gef-iE-pKU" id="Gnj-rH-k5k"/>
+                        <outlet property="dateTextField" destination="ekk-g5-iQo" id="ngb-kY-1PE"/>
                         <outlet property="titleTextField" destination="uKQ-Wv-jHB" id="yCr-eE-7dv"/>
                     </connections>
                 </viewController>

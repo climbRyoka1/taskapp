@@ -16,15 +16,21 @@ class CategoryViewController: UIViewController{
     @IBOutlet weak var categoryTableView: UITableView!
     
     var categoryText = String()
-    
+    var category : Category!
     var categoryList : Results<Category>!
     let realm = try! Realm()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         categoryTableView.dataSource = self
-        
         self.categoryList = realm.objects(Category.self)
-        // Do any additional setup after loading the view.
+        
+        let tapGestuere : UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        self.view.addGestureRecognizer(tapGestuere)        // Do any additional setup after loading the view.
+    }
+    
+    @objc func dismissKeyboard(){
+        view.endEditing(true)
     }
     
     @IBAction func addButton(_ sender: Any) {
@@ -42,7 +48,6 @@ class CategoryViewController: UIViewController{
 extension CategoryViewController:UITableViewDataSource,UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("A")
         return self.categoryList.count
     }
     
@@ -70,7 +75,7 @@ extension CategoryViewController:UITableViewDataSource,UITableViewDelegate{
         }
     }
     
-   
+  
 }
    
     
