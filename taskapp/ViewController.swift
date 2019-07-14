@@ -10,47 +10,79 @@ import UIKit
 import RealmSwift
 import UserNotifications
 
-class ViewController: UIViewController , UITableViewDataSource, UITableViewDelegate,UISearchBarDelegate{
+class ViewController: UIViewController , UITableViewDataSource, UITableViewDelegate,UIPickerViewDataSource,UIPickerViewDelegate{
 
+    var category : Results<Category>!
     let realm = try! Realm()
-
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var categoryTextField: UITextField!
     
-    @IBOutlet weak var searchBar: UISearchBar!
+    var categoryPicker : UIPickerView = UIPickerView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         tableView.dataSource = self
         tableView.delegate = self
-        searchBar.delegate = self
-        searchBar.placeholder = "カテゴリーを入力してください"
-        searchBar.showsCancelButton = true
+        
+        categoryPicker.delegate = self
+        categoryPicker.dataSource  = self
+        
+        category = realm.objects(Category.self)
+        
+        
+        
+        let toolber = UIToolbar(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 30))
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action:#selector(cancel))
+        toolber.setItems([space,doneButton,cancelButton], animated: true)
+        
+        categoryTextField.inputView = categoryPicker
+        categoryTextField.inputAccessoryView = toolber
     }
     
+    
+    
+    @objc func done(){
+        let searchCategory = categoryTextField.text
+        taskArray = realm.objects(Task.self).filter("category == %@", searchCategory!)
+        tableView.reloadData()
+        view.endEditing(true)
+    }
+    
+    @objc func cancel(){
+        taskArray = try!Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: false)
+        tableView.reloadData()
+        
+    }
     
     var taskArray = try!Realm().objects(Task.self).sorted(byKeyPath:"date", ascending: false)
    
     
     
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)  {
-        searchResult(searchText: searchBar.text! as String)
-        view.endEditing(true)
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        taskArray = try!Realm().objects(Task.self).sorted(byKeyPath: "date", ascending: false)
-        tableView.reloadData()
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if let category = category{
+            return category.count
+        }
+        return 0
     }
     
-    func searchResult(searchText: String) {
-         taskArray = realm.objects(Task.self).filter("category == %@", searchText)
-        print(taskArray)
-        tableView.reloadData()
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if let category = category{
+            return category[row].cate
+        }
+        return nil
     }
     
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        categoryTextField.text = category[row].cate
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return taskArray.count

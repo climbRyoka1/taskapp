@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rCN-i3-Vyq">
-                                <rect key="frame" x="0.0" y="130" width="320" height="394"/>
+                                <rect key="frame" x="0.0" y="104" width="320" height="420"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="qvP-YL-xQu" detailTextLabel="DmK-uT-fkl" style="IBUITableViewCellStyleSubtitle" id="Vdu-rK-Vtt">
@@ -48,21 +48,22 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="vCc-9h-JNz">
-                                <rect key="frame" x="0.0" y="64" width="320" height="56"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="カテゴリー選択" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YXm-w4-OOG">
+                                <rect key="frame" x="0.0" y="64" width="320" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                            </searchBar>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="rCN-i3-Vyq" firstAttribute="top" secondItem="vCc-9h-JNz" secondAttribute="bottom" constant="10" id="8fg-h5-XP9"/>
-                            <constraint firstItem="vCc-9h-JNz" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="B5D-JE-Aon"/>
-                            <constraint firstItem="vCc-9h-JNz" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="GEy-7C-5lF"/>
-                            <constraint firstItem="vCc-9h-JNz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ecM-WI-M9M"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="YXm-w4-OOG" secondAttribute="trailing" id="BwZ-69-Xxo"/>
+                            <constraint firstItem="rCN-i3-Vyq" firstAttribute="top" secondItem="YXm-w4-OOG" secondAttribute="bottom" constant="10" id="efq-3e-RTy"/>
                             <constraint firstItem="rCN-i3-Vyq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="f1B-U3-wjs"/>
                             <constraint firstItem="rCN-i3-Vyq" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="j2m-FY-weG"/>
+                            <constraint firstItem="YXm-w4-OOG" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="kA2-FB-jzf"/>
+                            <constraint firstItem="YXm-w4-OOG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="oHY-I6-EF3"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="rCN-i3-Vyq" secondAttribute="trailing" id="vke-Bp-CpW"/>
-                            <constraint firstItem="rCN-i3-Vyq" firstAttribute="top" secondItem="vCc-9h-JNz" secondAttribute="bottom" constant="10" id="wAS-HU-cEi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -81,7 +82,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="searchBar" destination="vCc-9h-JNz" id="oom-od-XCT"/>
+                        <outlet property="categoryTextField" destination="YXm-w4-OOG" id="ffE-RV-dnn"/>
                         <outlet property="tableView" destination="rCN-i3-Vyq" id="sHR-6u-58O"/>
                         <segue destination="dSF-6p-IpK" kind="show" identifier="Cellsegue" id="L7y-KI-5xV"/>
                     </connections>
@@ -256,6 +257,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="ES1-Qt-wQe"/>
+        <segue reference="L7y-KI-5xV"/>
     </inferredMetricsTieBreakers>
 </document>
